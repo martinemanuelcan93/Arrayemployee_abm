@@ -26,30 +26,29 @@ int reparacionporelec(Electrodomestico* elec,Reparacion* repa,Servicio* servicio
 	return 0;
 }
 int printpormarca(Marca* marca,Electrodomestico* elec, int cantidad){
-	char buffermarca[20];
+
 	int retorno =1;
-	int reintentos=3;
-
-	printMarcas(marca,5);
-	do{
-	if(getChar(buffermarca,20,"\nIngrese nombre de marca :","ingrese marca valida",3)==0)
+	int auxiliar_marca,cont=0;
+	if(marca!=NULL&&elec!=NULL&&cantidad>0)
 	{
-		for (int i=0;  i<tam_ele ;i++){
-
-		if(strcmp(buffermarca,marca[i].descripcion)==0){
-			retorno=0;
-
-			printUnitElec(elec,tam_ele,i);
-			break;
-			}
-		else if (i==3){
-			reintentos--;
-			printf("\nError.\nCantidad de reintentos --%d \nUsted ingreso -%s- revise minusculas y mayusculas ",reintentos,buffermarca);
-			}
+	    getMarca(marca, tam_mar, &auxiliar_marca);
+	    for (int i=0;  i<tam_ele ;i++)
+	    {
+		if(auxiliar_marca==elec[i].idmarca)
+		{
+		    printUnitElec(elec,tam_ele,i);
+		    cont++;
 		}
+	    }
+	    if(cont==1)
+		printf("Se encontro %d electrodomestico con la marca ingresada ",cont);
+	    else if(cont==0)
+		puts("No se encontro ningun electrodomestico con la marca ingresada");
+	    else
+		printf("Se encontraron %d electrodomesticos con la marca ingresada",cont);
 
+	    retorno=0;
 	}
-	}while( retorno!=0 && reintentos>0);
 	return retorno;
 }
 int printElec2020(Electrodomestico* elec, int tamanio){
@@ -74,19 +73,20 @@ int printElec2020(Electrodomestico* elec, int tamanio){
 }
 int nuevosInformes(Reparacion* reparaciones,Cliente* cliente,Servicio* servicio,Electrodomestico* elec,Marca* marca){
 	int submenu;
+
 	do{
 		getNro(&submenu,
 		"\nINFORMES \n1)Electrodomesticos año 2020\n2)Electrodomestico segun marca\n3)Reparac de Electrodomestico\n4)Electrodomestico sin reparar\n5)Precio total de 1 Electr.\n6)Servicio mas pedido\n7)Recaudacion segun fecha\n8)Elec segun Garantiayfecha\n9)Rep en 2018\n10)facturacion total\n11)Marca con mas arreglos\n12)Elect reparados segun fecha",
 		"Ingrese opcion valida",1,12,3);
-		switch(submenu){
+		switch(submenu)
+		{
 		case 1:
 			printElec2020(elec,tam_ele);
 			break;
 		case 2:
-			printpormarca(marca,elec,5);
+			printpormarca(marca, elec, tam_ele);
 			break;
 		case 3:
-
 			break;
 		case 4:
 		case 5:

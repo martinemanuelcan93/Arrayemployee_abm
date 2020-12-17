@@ -11,33 +11,35 @@
 #define tam_ser 4
 #define tam_mar 5
 #define tam_rep 10
-int initReparaciones(Reparacion* reparaciones,int tamanio_rep){
+int initReparaciones(Reparacion* reparaciones,int tamanio_rep)
+    {
 	int retorno = -1;
-	if(reparaciones!=NULL && tamanio_rep >0){
-
-		for(int i=0;  i< tamanio_rep  ;i++){
-			reparaciones[i].isEmpty=TRUE;
-			//printf("\nValor de i :%d",i);
-				retorno = 0;
-			}
+	if(reparaciones!=NULL && tamanio_rep >0)
+	{
+	    for(int i=0;  i< tamanio_rep  ;i++)
+	    {
+		reparaciones[i].isEmpty=TRUE;
+		//printf("\nValor de i :%d",i);
+		retorno = 0;
+	    }
 	}
 	return retorno;
 }
 int printUnitReparacion(Reparacion* reparacion,Servicio* service,int posicion){
 	int retorno=-1;
-			if(reparacion!=NULL ){
-				printf("Reparacion\nNro Rep.   |Serie   |Idcliente    |Fecha\n");
-				printf(" %d         %d        %d          %d/%d/%d \n",
-						reparacion[posicion].idReparacion,
-						reparacion[posicion].serieReparacion,
-						reparacion[posicion].id_cliente,
+	if(reparacion!=NULL ){
+	    printf("Reparacion\nNro Rep.   |Serie   |Idcliente    |Fecha\n");
+	    printf(" %d         %d        %d          %d/%d/%d \n",
+			reparacion[posicion].idReparacion,
+			reparacion[posicion].serieReparacion,
+			reparacion[posicion].id_cliente,
 
-						reparacion[posicion].fechaReparacion.day,
-						reparacion[posicion].fechaReparacion.month,
-						reparacion[posicion].fechaReparacion.year); //todo lo q pidioen alta
-				retorno=0;
-			}
-			return retorno;
+			reparacion[posicion].fechaReparacion.day,
+			reparacion[posicion].fechaReparacion.month,
+			reparacion[posicion].fechaReparacion.year);
+	    retorno=0;
+	}
+	return retorno;
 }
 int printReparaciones(Reparacion* reparaciones,Cliente* cliente,Servicio* servicio, int tamanio){
 	int retorno=-1;
@@ -52,15 +54,15 @@ int printReparaciones(Reparacion* reparaciones,Cliente* cliente,Servicio* servic
 			}
 			else
 			{
-				printf("\n %d     %d/%d/%d     ",
-						reparaciones[i].idReparacion,
-						reparaciones[i].fechaReparacion.day,
-						reparaciones[i].fechaReparacion.month,
-						reparaciones[i].fechaReparacion.year);
+			    printf("\n %d     %d/%d/%d     ",
+					    reparaciones[i].idReparacion,
+					    reparaciones[i].fechaReparacion.day,
+					    reparaciones[i].fechaReparacion.month,
+					    reparaciones[i].fechaReparacion.year);
 
-				printClienteporID(reparaciones[i].id_cliente,cliente);
-				printServicioporID(reparaciones[i].id_del_Servicio,servicio,tam_ser);
-				printf("nValor i = %d",i);
+			    printClienteporID(reparaciones[i].id_cliente,cliente);
+			    printServicioporID(reparaciones[i].id_del_Servicio,servicio,tam_ser);
+			    printf("nValor i = %d",i);
 			}
 		    }
 		retorno=0;
@@ -69,24 +71,27 @@ int printReparaciones(Reparacion* reparaciones,Cliente* cliente,Servicio* servic
 }
 int printClienteporID(int ID,Cliente* cliente){
 
-	for(int i=0;i<tam_cli;i++){
-		if(cliente[i].idcliente==ID){
-			printf("%s %s ",cliente[i].apellido,cliente[i].nombre);
-		}
+	for(int i=0;i<tam_cli;i++)
+	{
+	    if(cliente[i].idcliente==ID)
+	    {
+		printf("%s %s ",cliente[i].apellido,cliente[i].nombre);
+	    }
 	}
 	return 0;
 }
 int printServicioporID(int ID,Servicio* service,int tam_servicio){
 
-	for(int i=0 ;  i<tam_servicio ;i++){
-			if(ID == service[i].idServicio){
-				printf("   %s   ",service[i].descripcion);
-				printf("$%.2f",service[i].precio);
-				break;
-			}
-		}
-
-		return 0;
+	for(int i=0 ;  i<tam_servicio ;i++)
+	{
+	    if(ID == service[i].idServicio)
+	    {
+		printf("   %s   ",service[i].descripcion);
+		printf("$%.2f",service[i].precio);
+		break;
+	    }
+	}
+	return 0;
 }
 int altaforzadaReparacion(Reparacion* reparacion,Fecha* fecha,Servicio* service,Electrodomestico* elec,Cliente* cliente,int* idreparacion,int tam_repa)
 {
