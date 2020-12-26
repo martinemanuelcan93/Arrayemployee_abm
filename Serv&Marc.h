@@ -13,6 +13,7 @@ typedef struct {
 int altaforzadaMarca1(Marca* marca,int posicion,int* id,char* descripcion);
 int altaforzadaMarca2(Marca* marca,int tam);
 int printMarcas(Marca* marca, int tam);
+void strcpyMarcaporID(char* buffer,int idmarca_buscada,Marca* marca,int tamanio_marca);
 int getMarca(Marca* marca, int tamanio_marca,int* id_aux_marca);
 int altaforzadaServicio(Servicio* servicio,int tam);
 int printServicios(Servicio* servicio, int tam);

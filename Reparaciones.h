@@ -6,17 +6,15 @@
 typedef struct {
 	int idReparacion; // autoincremental
 
-	int serieReparacion;// serie de electrodomestico
+	int serieReparacion;// ID de electrodomestico
 	int id_del_Servicio; // hacer un getServicio
-	int id_marca;
-	int id_cliente;
 
 	int isEmpty;
 	Fecha fechaReparacion;
-
 }Reparacion;
+
 int initReparaciones(Reparacion* reparaciones,int tam_rep);
-int altaforzadaReparacion(Reparacion* datarep,Fecha* fecha,Servicio* service,Electrodomestico* data,Cliente* cliente,int* idreparacion,int tam_repa);
+int altaforzadaReparacion(Reparacion* datarep,Fecha* fecha,Servicio* service,Electrodomestico* data,int* idreparacion,int tam_repa);
 int addReparacion(Reparacion* datarep,Fecha* fecha,Servicio* service,Electrodomestico* data,Cliente* cliente,int tam_reparacion,int* Idreparacion);
 int buscarReparacionLibre(Reparacion* reparacion,int tam,int* posicion);
 int printUnitReparacion(Reparacion* datarep,Servicio* service,int posicion);

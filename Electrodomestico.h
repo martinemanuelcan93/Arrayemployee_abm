@@ -13,15 +13,14 @@ typedef struct
     	int serie;
     	int idmarca;
     	int isEmpty;
+    	int id_cliente;
     	Fecha modelo;
-
 }Electrodomestico;
 
 int buscarElectrodomesticoLibre(Electrodomestico* elec,int tamanio,int* posicion);
 int initElectrodomestico(Electrodomestico* elec,int cantidad);
 int addElectrodomestico(Electrodomestico* elec,Fecha* fecha,Marca *marca, int L,int* idElectrodomestico);
 int printElectrodomesticos(Electrodomestico* elec, int tamanio);
-int findElectrodomesticoById(Electrodomestico* elec, int tamanio,int idbuscado);
 /** \brief find an Employee by Id and returns the index position in array.
  *
  * \param list Employee*
@@ -31,7 +30,7 @@ int findElectrodomesticoById(Electrodomestico* elec, int tamanio,int idbuscado);
 pointer received or employee not found]
  *
  */
-int buscaridElectrodomestico(Electrodomestico* elec, int tamanio, int idBuscado, int* posicion);
+int isValid_elec(Electrodomestico* elec, int tam,int idBuscado);
 int sortElectrodomestico(Electrodomestico* elec, int tamanio, int order);
 /** \brief Sort the elements in the array of employees, the argument order
 indicate UP or DOWN order
@@ -42,7 +41,7 @@ indicate UP or DOWN order
  * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
  *
  */
-int removeElectrodomestico(Electrodomestico* elec, int tamanio);
+int removeElectrodomestico(Electrodomestico* elec, int tamanio,Marca* marca);
 /** \brief Remove a Employee by Id (put isEmpty Flag in 1)
  *
  * \param list Employee*
@@ -52,13 +51,13 @@ int removeElectrodomestico(Electrodomestico* elec, int tamanio);
 find a employee] - (0) if Ok
  *
  */
-
 int modifyElectrodomestico(Electrodomestico* elec,Marca* marca, int tamanio);
-
-int validarElectrodomestico(Electrodomestico* elec,int tamanio,int* posicion);
-int printUnitElec(Electrodomestico* elec, int tamanio,int posicion);
-int altaforzadaUnidadElec(Electrodomestico* elec,int tamanio,int i,int* id,int marca,int serie,int modelo,int dia,int mes,int anio);
+int electrodomesticobyID(Electrodomestico* elec,int tamanio,int* posicion);
+int printUnitElec(Electrodomestico* data,int posicion,Marca* marca,int tamanio_mar);
+void cartelUnitElec(char* estado_electrodomestico);
+int altaforzadaUnidadElec(Electrodomestico* elec,int tamanio,int i,int* id,int marca,int serie,int modelo,int anio);
 float promedio(Electrodomestico* elec,float* promedy,int tamanio);
-int altaforzadaVariosElec(Electrodomestico* elec,int tamanio);
+void altaforzadaVariosElec(Electrodomestico* elec,int tamanio,int *id_elec);
+void electrodomesticos_cargados(Electrodomestico* elec,int tamanio);
 #include "Electrodomestico.h"
 #endif

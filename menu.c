@@ -14,13 +14,27 @@
 #define tam_mar 5
 #define tam_rep 10
 int prueba;
-
+/*
+ * 1- Mostrar Electrodomésticos del año(nodelo) 2020 -
+2- Mostrar Electrodomésticos de una marca seleccionada -
+3- Mostrar todos las reparaciones efectuadas al Electrodoméstico seleccionado -
+4- Listar los Electrodomésticos que no tuvieron reparaciones -
+5- Informar importe total de las reparaciones realizadas a un Electrodoméstico
+seleccionado
+6- Mostrar el servicio más pedido
+7- Mostrar la recaudación en una fecha en particular
+8- Mostrar todos los Electrodomésticos que realizaron una garantía y la fecha
+9- Trabajos realizados a Electrodomésticos del año(modelo) 2018
+10- Facturación total por los mantenimientos
+11- Informar la marca de Electrodomésticos que efectuaron más refacciones
+12- Listar los Electrodomésticos que recibieron reparación en un fecha determinada
+ * */
 
 int main(void) {
 	setbuf(stdin,NULL);
 	int opcion;
 	int rta_ordenamiento;
-	int flagInit=0;
+	int rta;
 	int IdElectrodomestico=100;
 	int IdReparacion=10;
 
@@ -34,10 +48,10 @@ int main(void) {
 	altaforzadaServicio(service,tam_ser);
 	altaforzadaCliente(cliente,tam_cli);
 	initElectrodomestico(elec,tam_ele);
-	altaforzadaVariosElec(elec,tam_ele);
+	altaforzadaVariosElec(elec,tam_ele,&IdElectrodomestico);
 	// ELECTRODOMESTICO
 	initReparaciones(reparaciones,tam_rep);
-	altaforzadaReparacion(reparaciones,fecha,service,elec,cliente,&IdReparacion,tam_rep);
+	altaforzadaReparacion(reparaciones,fecha,service,elec,&IdReparacion,tam_rep);
 	//sortElectrodomestico(elec,tam_ele,1);
 	//printElectrodomesticos(elec,tam_ele);
 	//printServicios(servic,tam_ser);
@@ -49,33 +63,39 @@ int main(void) {
 
 	do{
 	    getNro(&opcion,
-	    "\nIngrese una opcion del menu \n1)Alta Electrodomestico\n2)Modificar Electrodomestico\n3)Baja Electrodomestico\n4)Mostrar Electrodomestico\n5)Mostrar marcas\n6)Mostrar servicios \n7)Alta reparacion\n8)Listar Reparaciones\n9)INFORMES \n:",
-	    "Ingrese opcion valida",1,9,3);
+			    "\nIngrese una opcion del menu\n"
+			    "1)Alta Electrodomestico\n"
+			    "2)Modificar Electrodomestico\n"
+			    "3)Baja Electrodomestico\n"
+			    "4)Mostrar Electrodomestico\n"
+			    "5)Mostrar marcas\n"
+			    "6)Mostrar servicios\n"
+			    "7)Alta reparacion\n"
+			    "8)Listar Reparaciones\n"
+			    "9)INFORMES\n:",
+			    "Ingrese opcion valida",1,9,3);
 	    switch(opcion){
 	    case 1:
-		    if(flagInit==0 && initElectrodomestico(elec,tam_ele)==0 )
-			{
-			    flagInit=1;
-			}
-		    int rta;
 		    do
 		    {
+			electrodomesticos_cargados(elec, tam_ele);
 			addElectrodomestico(elec,fecha,marca,tam_ele,&IdElectrodomestico);
 			getNro(&rta,"\nDesea cargar electrodomestico?\nSi(1)/ No(2): ","Ingrese una respuesta valida",1,2,3);
 		    }while(rta==1);
-
 		    break;
 	    case 2:
 		    modifyElectrodomestico(elec,marca,tam_ele);
 		    break;
 	    case 3:
-		    while(removeElectrodomestico(elec,tam_ele)==1){ // mientrar no encuentre el electr.
-			    removeElectrodomestico(elec,tam_ele);// pide elect. nuevamente
-		    };
+		    while(removeElectrodomestico(elec,tam_ele,marca)==1)
+		    {
+			removeElectrodomestico(elec,tam_ele,marca);
+		    }
 		    break;
 	    case 4:
 		    getNro(&rta_ordenamiento,
-		    "\t -Ordenamiento por Modelo-\n Mayor a Menor ingrese[ 1 ]  Menor a mayor [ 2 ] :",
+		    "\t -Ordenamiento por Modelo-\n "
+		    "Mayor a Menor ingrese[ 1 ]  Menor a mayor [ 2 ] :",
 		    "Seleccione un valor de los mencionados", 1, 2, 3);
 		    sortElectrodomestico(elec,tam_ele,rta_ordenamiento);
 		    printElectrodomesticos(elec,tam_ele);
@@ -93,7 +113,7 @@ int main(void) {
 		    printReparaciones(reparaciones,cliente,service,tam_rep);
 		    break;
 	    case 9:
-		    nuevosInformes(reparaciones,cliente,service,elec,marca);
+		    nuevosInformes(reparaciones,cliente,service,elec,marca,tam_mar);
 		    break;
 	    default:
 		    puts("Ingrese una opcion valida");
