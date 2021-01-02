@@ -55,13 +55,15 @@ int printMarcas(Marca* data, int tam)
 int getMarca(Marca* marca, int tamanio_marca,int* id_aux_marca){
 	int retorno=1;
 	char buffer_marca[sizeof((*marca).descripcion)];
-	int reintentos=2;
+	int reintentos=3;
 	if(marca!=NULL && tamanio_marca>0)
 	{
 	    printMarcas(marca, tamanio_marca);
 	    do{
+
 		getChar(buffer_marca,sizeof((*marca).descripcion),"\nIngrese nombre de la marca :","Ingrese solo letras",3);
 		formatoName(buffer_marca);
+
 		for (int i=0;  i<tamanio_marca ; i++)
 		{
 		    if(strcmp(buffer_marca, marca[i].descripcion)==0)
@@ -74,7 +76,7 @@ int getMarca(Marca* marca, int tamanio_marca,int* id_aux_marca){
 		    else if(i==tamanio_marca-1) // cuando se recorrio todoo el array de  marcas
 						// y no hay coincidencias:
 		    {
-			puts("# No se encontro marca # \n");
+			puts("# No se encontro marca  # \n");
 			printf("Intentos restantes %d\n",reintentos);
 			reintentos--;
 		    }

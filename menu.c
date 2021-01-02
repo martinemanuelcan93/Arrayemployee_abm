@@ -18,7 +18,7 @@ int prueba;
  * 1- Mostrar Electrodomésticos del año(nodelo) 2020 -
 2- Mostrar Electrodomésticos de una marca seleccionada -
 3- Mostrar todos las reparaciones efectuadas al Electrodoméstico seleccionado -
-4- Listar los Electrodomésticos que no tuvieron reparaciones -
+4- Listar los Electrodomésticos que no tuvieron reparaciones
 5- Informar importe total de las reparaciones realizadas a un Electrodoméstico
 seleccionado
 6- Mostrar el servicio más pedido
@@ -44,22 +44,15 @@ int main(void) {
 	Servicio service[tam_ser];
 	Reparacion reparaciones[tam_rep];
 	Cliente cliente[tam_cli];
+
 	altaforzadaMarca2(marca,tam_mar);
 	altaforzadaServicio(service,tam_ser);
 	altaforzadaCliente(cliente,tam_cli);
 	initElectrodomestico(elec,tam_ele);
 	altaforzadaVariosElec(elec,tam_ele,&IdElectrodomestico);
-	// ELECTRODOMESTICO
 	initReparaciones(reparaciones,tam_rep);
 	altaforzadaReparacion(reparaciones,fecha,service,elec,&IdReparacion,tam_rep);
-	//sortElectrodomestico(elec,tam_ele,1);
-	//printElectrodomesticos(elec,tam_ele);
-	//printServicios(servic,tam_ser);
-	//printCliente(cliente,tam_cli);
-	//printElec2020(elec,tam_ele);
-	//printpormarca(marca,elec,5);
-	//printReparaciones(reparaciones,cliente,service,tam_rep);//10
-        //printf("\nId reparacion disponible -> %d",IdReparacion);
+
 
 	do{
 	    getNro(&opcion,
@@ -78,9 +71,10 @@ int main(void) {
 	    case 1:
 		    do
 		    {
-			electrodomesticos_cargados(elec, tam_ele);
+			electrodomesticos_cargados(elec,tam_ele);
 			addElectrodomestico(elec,fecha,marca,tam_ele,&IdElectrodomestico);
-			getNro(&rta,"\nDesea cargar electrodomestico?\nSi(1)/ No(2): ","Ingrese una respuesta valida",1,2,3);
+			getNro(&rta,"\nDesea cargar electrodomestico?\n"
+				"Si(1)/ No(2): ","Ingrese una respuesta valida",1,2,3);
 		    }while(rta==1);
 		    break;
 	    case 2:
@@ -93,12 +87,14 @@ int main(void) {
 		    }
 		    break;
 	    case 4:
-		    getNro(&rta_ordenamiento,
+		    if(getNro(&rta_ordenamiento,
 		    "\t -Ordenamiento por Modelo-\n "
 		    "Mayor a Menor ingrese[ 1 ]  Menor a mayor [ 2 ] :",
-		    "Seleccione un valor de los mencionados", 1, 2, 3);
-		    sortElectrodomestico(elec,tam_ele,rta_ordenamiento);
-		    printElectrodomesticos(elec,tam_ele);
+		    "Seleccione un valor de los mencionados", 1, 2, 3)==0)
+		    {
+			sortElectrodomestico(elec,tam_ele,rta_ordenamiento);
+			printElectrodomesticos(elec,tam_ele);
+		    }
 		    break;
 	    case 5:
 		    printMarcas(marca,tam_mar);

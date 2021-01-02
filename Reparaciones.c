@@ -60,7 +60,6 @@ int printReparaciones(Reparacion* reparaciones,Cliente* cliente,Servicio* servic
 					reparaciones[i].fechaReparacion.day,
 					reparaciones[i].fechaReparacion.month,
 					reparaciones[i].fechaReparacion.year);
-			//printClienteporID(reparaciones[i].id_cliente,cliente);
 			printServicioporID(reparaciones[i].id_del_Servicio,servicio,tam_ser);
 		    }
 		}
@@ -68,35 +67,35 @@ int printReparaciones(Reparacion* reparaciones,Cliente* cliente,Servicio* servic
 	    }
 	    return retorno;
 }
-int printClienteporID(int ID,Cliente* cliente){
+int printClienteporID(int id_buscado,Cliente* cliente){
 
 	for(int i=0;i<tam_cli;i++)
 	{
-	    if(cliente[i].idcliente==ID)
+	    if(cliente[i].idcliente==id_buscado)
 	    {
 		printf("%s %s ",cliente[i].apellido,cliente[i].nombre);
 	    }
 	}
 	return 0;
 }
-int printServicioporID(int ID,Servicio* service,int tam_servicio){
-
+int printServicioporID(int id_buscado,Servicio* service,int tam_servicio)
+{
+	int retorno=1;
 	for(int i=0 ;  i<tam_servicio ;i++)
 	{
-	    if(ID == service[i].idServicio)
+	    if(id_buscado == service[i].idServicio)
 	    {
-		printf("   %s   ",service[i].descripcion);
-		printf("$%.2f",service[i].precio);
+		printf("   %s   $%.2f",service[i].descripcion,service[i].precio);
+		retorno = 0;
 		break;
 	    }
 	}
-	return 0;
+	return retorno;
 }
 int altaforzadaReparacion(Reparacion* reparacion,Fecha* fecha,Servicio* service,Electrodomestico* elec,int* idreparacion,int tam_repa)
 {
 	int cantidad_hardcodeada=0;
-	Reparacion buffer_reparacion[]=
-	{
+	Reparacion buffer_reparacion[]=	{
 		    {10,100,20000,FALSE,{2,12,1993}},
 		    {11,100,20002,FALSE,{2,12,1999}},
 		    {12,101,20000,FALSE,{2,12,2020}},
@@ -105,14 +104,15 @@ int altaforzadaReparacion(Reparacion* reparacion,Fecha* fecha,Servicio* service,
 		    {15,104,20001,FALSE,{9,10,2007}},
 		    {16,101,20001,FALSE,{9,10,2005}}
 	};
+
 	/// cuento los datos que se cargaron a mano arriba ya que no se define el tamaño del buffer
 	/// muy importante cambiar el valor IsEmpty y compilar antes de borrar alguna linea de codigo u ocultara
 	/// ya que en la direccion de memoria seguira figurando is empty=="0" por tanto la condicion del for
 	///  con relacion al isempty no sera suficiente
 	for(int j=0; buffer_reparacion[j].isEmpty==TRUE ; j++)
-	{
-	    cantidad_hardcodeada++;
-	}
+	    {
+		cantidad_hardcodeada++;
+	    }
 	(*idreparacion)+=cantidad_hardcodeada;
 
 	/// cargo del buffer al array hasta llegar a la cantidad contada
@@ -137,7 +137,6 @@ int addReparacion(Reparacion* reparacion,Fecha* fecha,Servicio* service,Electrod
 		&&getNro(&buffer.fechaReparacion.month,"Mes :","Ingrese dia valido",1,12,3)==0
 		&&getNro(&buffer.fechaReparacion.year,"Año :","Ingrese dia valido",1,3000,3)==0)
 	    {
-
 		buffer.isEmpty=FALSE;
 		buffer.idReparacion=*Idreparacion;
 		reparacion[posicion]=buffer;

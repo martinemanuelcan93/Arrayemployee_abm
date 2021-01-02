@@ -21,7 +21,10 @@ int reparacionporelec(Electrodomestico* elec,Reparacion* repa,Servicio* servicio
 	    {
 		printUnitReparacion(repa,servicio,i);
 	    }
+	    else if(i==tam_rep-1)
+		puts("No se encuentrar reparaciones del Electrodomestico seleccionado.");
 	}
+
 	return 0;
 }
 int printpormarca(Marca* marca,Electrodomestico* elec, int cantidad,int tam_mar){
@@ -113,8 +116,8 @@ int nuevosInformes(Reparacion* reparaciones,Cliente* cliente,Servicio* servicio,
 	    "10)facturacion total\n"
 	    "11)Marca con mas arreglos\n"
 	    "12)Elect reparados segun fecha\n"
-	    "13)SALIR",
-	    "Ingrese opcion valida",1,12,3);
+	    "13)SALIR\t",
+	    "Ingrese opcion valida",1,13,3);
 	    switch(submenu)
 	    {
 		case 1:

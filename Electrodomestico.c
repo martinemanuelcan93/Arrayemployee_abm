@@ -234,7 +234,7 @@ int modifyElectrodomestico(Electrodomestico* elec,Marca* marca, int tam){
 }
 int sortElectrodomestico(Electrodomestico* elec, int tam, int order){
 	int retorno=-1,i,j;
-	Electrodomestico auxiliar,auxiliarserie;
+	Electrodomestico auxiliar;
 
 	if(elec != NULL && tam>0)
 	    {
@@ -243,26 +243,36 @@ int sortElectrodomestico(Electrodomestico* elec, int tam, int order){
 		for(j=i+1; j<tam; j++)
 		    {
 		    if( order==1 && (elec[i].modelo.year < elec[j].modelo.year ))
-			{
+			{	// mayor a menor por modelo
 			    auxiliar = elec[i];
 			    elec[i]  = elec[j];
 			    elec[j]  = auxiliar;
+			    retorno = 0;
 			}
 		    else if(elec[i].modelo.year == elec[j].modelo.year
 			    && elec[i].serie < elec[j].serie)
-			{
-			    auxiliarserie = elec[i];
+			{	// si son iguales ordeno por serie de mayor a menor
+			    auxiliar = elec[i];
 			    elec[i]  = elec[j];
-			    elec[j]  = auxiliarserie;
-			    retorno =0;
+			    elec[j]  = auxiliar;
+			    retorno = 0;
 			}
 		    else if(order==2 && (elec[i].modelo.year > elec[j].modelo.year ))
-			{
+			{	// menor a mayor por modelo
 			    auxiliar = elec[i];
 			    elec[i]  = elec[j];
 			    elec[j]  = auxiliar;
 			    retorno =0;
 			}
+		    else if(elec[i].modelo.year == elec[j].modelo.year
+			    && elec[i].serie > elec[j].serie)
+			{	// si son iguales ordeno por serie de mayor a menor
+			    auxiliar = elec[i];
+			    elec[i]  = elec[j];
+			    elec[j]  = auxiliar;
+			    retorno = 0;
+			}
+
 		     }
 		 }
 	    }
