@@ -15,11 +15,11 @@ typedef struct {
 
 int initReparaciones(Reparacion* reparaciones,int tam_rep);
 int altaforzadaReparacion(Reparacion* datarep,Fecha* fecha,Servicio* service,Electrodomestico* data,int* idreparacion,int tam_repa);
-int addReparacion(Reparacion* datarep,Fecha* fecha,Servicio* service,Electrodomestico* data,Cliente* cliente,int tam_reparacion,int* Idreparacion);
+int addReparacion(Reparacion* datarep,Fecha* fecha,Servicio* service,Electrodomestico* data,Cliente* cliente,int tam_reparacion,int* Idreparacion,Marca* marca);
 int buscarReparacionLibre(Reparacion* reparacion,int tam,int* posicion);
-int printUnitReparacion(Reparacion* datarep,Servicio* service,int posicion);
+int printUnitReparacion(Reparacion* datarep,Servicio* service,int posicion,Electrodomestico* elec,Cliente* cliente);
 int printReparaciones(Reparacion* reparaciones,Cliente* cliente,Servicio* servicio, int L);
-int printClienteporID(int ID,Cliente* cliente);
+int printClienteporId(char* cadena,int idbuscado,Cliente* cliente,int tamanio);
 int printServicioporID(int ID,Servicio* service,int tam_ser);
 #include "Reparaciones.h"
 

@@ -54,10 +54,11 @@ find a employee] - (0) if Ok
 int modifyElectrodomestico(Electrodomestico* elec,Marca* marca, int tamanio);
 int electrodomesticobyID(Electrodomestico* elec,int tamanio,int* posicion);
 int printUnitElec(Electrodomestico* data,int posicion,Marca* marca,int tamanio_mar);
-void cartelUnitElec(char* estado_electrodomestico);
+void cartelUnitElec(char* msj_electrodomestico);
 int altaforzadaUnidadElec(Electrodomestico* elec,int tamanio,int i,int* id,int marca,int serie,int modelo,int anio);
 float promedio(Electrodomestico* elec,float* promedy,int tamanio);
 void altaforzadaVariosElec(Electrodomestico* elec,int tamanio,int *id_elec);
 void electrodomesticos_cargados(Electrodomestico* elec,int tamanio);
+char* elecporIdReparacion(Electrodomestico* elec,int tamanio,int idBuscado);
 #include "Electrodomestico.h"
 #endif

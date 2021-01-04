@@ -1,6 +1,7 @@
 #include "reparaciones.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "Biblioteca2020.h"
 #include "Electrodomestico.h"
 #include "INFORMES.h"
@@ -26,57 +27,49 @@ int initReparaciones(Reparacion* reparaciones,int tamanio_rep)
 	}
 	return retorno;
 }
-int printUnitReparacion(Reparacion* reparacion,Servicio* service,int posicion){
+int printUnitReparacion(Reparacion* reparacion,Servicio* service,int posicion,Electrodomestico* elec,Cliente* cliente){
 	int retorno=-1;
-	if(reparacion!=NULL ){
-	    printf("Reparacion\nNro Rep.   |id elec   |Idcliente    |Fecha\n");
-	    printf(" %d         %d                  %d/%d/%d \n",
+	//char cadena[150];
+	if(reparacion!=NULL )
+	{
+	    printf("Reparacion\nNro Rep.   |id elec     |Fecha\n");
+	    printf(" %d         %d        %d/%d/%d ",
 			reparacion[posicion].idReparacion,
 			reparacion[posicion].serieReparacion,
-			//reparacion[posicion].id_cliente,
-
 			reparacion[posicion].fechaReparacion.day,
 			reparacion[posicion].fechaReparacion.month,
 			reparacion[posicion].fechaReparacion.year);
+	    printServicioporID(reparacion[posicion].id_del_Servicio, service, tam_ser);
+	    printf("\n");
 	    retorno=0;
 	}
 	return retorno;
 }
 int printReparaciones(Reparacion* reparaciones,Cliente* cliente,Servicio* servicio, int tamanio){
 	int retorno=-1;
-	if(reparaciones!=NULL && tamanio > 0)
-	    {
-		printf("-Reparaciones-\nNro    |FechaRep      |Cliente             |Servicio      |Precio   ");
-		for(int i=0;  i<tamanio ;i++)
-		{
-		    if(reparaciones[i].isEmpty==TRUE)
-		    {
-			continue;
-		    }
-		    else
-		    {
-			printf("\n %d     %d/%d/%d     ",
-					reparaciones[i].idReparacion,
-					reparaciones[i].fechaReparacion.day,
-					reparaciones[i].fechaReparacion.month,
-					reparaciones[i].fechaReparacion.year);
-			printServicioporID(reparaciones[i].id_del_Servicio,servicio,tam_ser);
-		    }
-		}
-		retorno=0;
-	    }
-	    return retorno;
-}
-int printClienteporID(int id_buscado,Cliente* cliente){
 
-	for(int i=0;i<tam_cli;i++)
+	if(reparaciones!=NULL && tamanio > 0)
 	{
-	    if(cliente[i].idcliente==id_buscado)
+	    printf("-Reparaciones-\nNro    |FechaRep         |Servicio      |Precio   ");
+	    for(int i=0;  i<tamanio ;i++)
 	    {
-		printf("%s %s ",cliente[i].apellido,cliente[i].nombre);
+		if(reparaciones[i].isEmpty==TRUE)
+		{
+		    continue;
+		}
+		else
+		{
+		    printf("\n %d     %d/%d/%d     ",
+			    reparaciones[i].idReparacion,
+			    reparaciones[i].fechaReparacion.day,
+			    reparaciones[i].fechaReparacion.month,
+			    reparaciones[i].fechaReparacion.year);
+		    printServicioporID(reparaciones[i].id_del_Servicio,servicio,tam_ser);
+		}
 	    }
+	    retorno=0;
 	}
-	return 0;
+	return retorno;
 }
 int printServicioporID(int id_buscado,Servicio* service,int tam_servicio)
 {
@@ -94,33 +87,37 @@ int printServicioporID(int id_buscado,Servicio* service,int tam_servicio)
 }
 int altaforzadaReparacion(Reparacion* reparacion,Fecha* fecha,Servicio* service,Electrodomestico* elec,int* idreparacion,int tam_repa)
 {
+    /*	{20000,"Garantia     ",250},     //0
+	{20001,"Mantenimiento",500},	 //1
+	{20002,"Repuestos    ",400},	 //2
+	{20003,"Refaccion    ",600}*/
 	int cantidad_hardcodeada=0;
 	Reparacion buffer_reparacion[]=	{
-		    {10,100,20000,FALSE,{2,12,1993}},
-		    {11,100,20002,FALSE,{2,12,1999}},
-		    {12,101,20000,FALSE,{2,12,2020}},
-		    {13,102,20001,FALSE,{9,10,2009}},
-		    {14,104,20003,FALSE,{2,12,2010}},
+		    {10,100,20000,FALSE,{2,12,1993}}, //250
+		    {11,100,20002,FALSE,{2,12,1999}},//400
+		    {12,101,20000,FALSE,{2,12,2020}},//250
+		    {13,102,20001,FALSE,{9,10,2020}},
+		    {14,104,20003,FALSE,{2,12,2020}},//600
 		    {15,104,20001,FALSE,{9,10,2007}},
 		    {16,101,20001,FALSE,{9,10,2005}}
 	};
 
-	/// cuento los datos que se cargaron a mano arriba ya que no se define el tamaño del buffer
-	/// muy importante cambiar el valor IsEmpty y compilar antes de borrar alguna linea de codigo u ocultara
-	/// ya que en la direccion de memoria seguira figurando is empty=="0" por tanto la condicion del for
-	///  con relacion al isempty no sera suficiente
-	for(int j=0; buffer_reparacion[j].isEmpty==TRUE ; j++)
-	    {
-		cantidad_hardcodeada++;
-	    }
+	for(int j=0; j<tam_repa ; j++)
+	{
+	    if(buffer_reparacion[j].isEmpty==FALSE)
+	    cantidad_hardcodeada++;
+	    else
+		break;
+	}
 	(*idreparacion)+=cantidad_hardcodeada;
 
 	/// cargo del buffer al array hasta llegar a la cantidad contada
 	for(int i=0; i<cantidad_hardcodeada && i<tam_repa  ;i++)
-	    reparacion[i]=buffer_reparacion[i];
+	  reparacion[i]=buffer_reparacion[i];
+
 	return 0;
 }
-int addReparacion(Reparacion* reparacion,Fecha* fecha,Servicio* service,Electrodomestico* elec,Cliente* cliente,int tam_reparacion,int* Idreparacion)
+int addReparacion(Reparacion* reparacion,Fecha* fecha,Servicio* service,Electrodomestico* elec,Cliente* cliente,int tam_reparacion,int* Idreparacion,Marca* marca)
 {
 	int retorno=-1,posicion=0;
 	Reparacion buffer;
@@ -141,7 +138,7 @@ int addReparacion(Reparacion* reparacion,Fecha* fecha,Servicio* service,Electrod
 		buffer.idReparacion=*Idreparacion;
 		reparacion[posicion]=buffer;
 		(*Idreparacion)++;
-		printUnitReparacion(reparacion,service,posicion);
+		printUnitReparacion(reparacion,service,posicion,elec,cliente);
 		retorno=0;
 	    }
 	}
@@ -200,34 +197,3 @@ int getService(Reparacion* reparacion,Servicio* service, int cantidad)
 	return retorno;
 }
 
-/*int getCliente(Reparacion* reparacion,Cliente* cliente, int cantidad)
-{
-	int buffercliente;
-	int retorno =1;
-	int reintentos=3;
-	if(reparacion!=NULL&&cliente!=NULL&&cantidad>0)
-	{
-	    printCliente(cliente,cantidad);
-	    do
-	    {
-	    getNro(&buffercliente,"\nIngrese ID Cliente :","Ingrese cliente valido",1,3000,3);
-		for (int i=0;  i<5 ;i++)
-		{
-		    if(buffercliente==reparacion[i].id_cliente)
-		    {
-			retorno=0;
-			puts("Id cliente cargado exitosamente");
-			break;
-		    }
-		    else
-		    {
-			reintentos--;
-			printf("\nError. \nCantidad de reintentos :%d \nusted ingreso %d",reintentos,buffercliente);
-		    }
-		}
-	    }
-	    while(reintentos>0);
-       }
-	return retorno;
-}
-*/

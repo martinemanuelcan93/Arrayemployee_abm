@@ -18,7 +18,8 @@ int altaforzadaMarca1(Marca* marca,int posicion,int* id,char* descripcion)
 	}
 	return retorno;
 }
-int altaforzadaMarca2(Marca* marca,int tam){
+int altaforzadaMarca2(Marca* marca,int tam)
+{
 	Marca buffermarca[]=
 	{
 	    {1000,"Sony"},

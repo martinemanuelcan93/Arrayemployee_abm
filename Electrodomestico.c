@@ -11,7 +11,6 @@
 #define tam_ser 4
 #define tam_mar 5
 #define tam_rep 10
-
 /*  Recibe el puntero de tipo struct con su tamaño
  *  e inicializa todas las posiciones de la estructura del campo "isEmpty" en 1 (TRUE)
  *  retorna 0 si esta todo bien y -1 si los parametros no son correctos
@@ -324,9 +323,9 @@ int printUnitElec(Electrodomestico* data,int posicion,Marca* marca,int tamanio_m
 	}
 	return retorno;
 }
-void cartelUnitElec(char* estado_electrodomestico)
+void cartelUnitElec(char* msj_electrodomestico)
 {
-    printf("Electrodomestico %s:\n Id  |  Marca     |Serie  |Modelo \n",estado_electrodomestico);
+    printf("Electrodomestico %s:\n Id  |  Marca     |Serie  |Modelo \n",msj_electrodomestico);
 }
 void electrodomesticos_cargados(Electrodomestico* elec,int tamanio)
 {
@@ -341,6 +340,7 @@ void electrodomesticos_cargados(Electrodomestico* elec,int tamanio)
     printf("Electrodomesticos cargados: %d",cantidad_hardcodeada);
 
 }
+
 /* float promedio(Electrodomestico* data,float* promedy,int L){
 	float total=0;
 	int contador=0;

@@ -10,21 +10,185 @@
 #define tam_cli 5
 #define tam_ser 4
 #define tam_rep 10
-
-int reparacionporelec(Electrodomestico* elec,Reparacion* repa,Servicio* servicio,Cliente* cliente){
-	int aux_id_elec;
-	printElectrodomesticos(elec,tam_ele);
-	getNro(&aux_id_elec,"\nIngrese ID de Electrodomestico :","ERROR Ingrese un ID valido",100,106,3);
-	for(int i=0; i<tam_rep  ;i++)
+int servicioporId(float* precio,Servicio* service,int tamanio,int idbuscado)
+{
+    int retorno=1;
+    for(int i=0; i<tamanio; i++)
+    {
+	if(idbuscado==service[i].idServicio)
 	{
-	    if(aux_id_elec == repa[i].serieReparacion)
-	    {
-		printUnitReparacion(repa,servicio,i);
-	    }
-	    else if(i==tam_rep-1)
-		puts("No se encuentrar reparaciones del Electrodomestico seleccionado.");
+	    *precio = service[i].precio;
 	}
+    }
+    return retorno;
+}
+int recaudacionxfecha(Reparacion* repa,int tamanio,Servicio* service)
+{
+    int retorno=1;
+    int anio,mes,dia;
+    int opcion,rta;
+    float precio,acumulador=0;
+    Fecha aux;
+    if(repa!=NULL&& tamanio >0)
+    {
+	do
+	{
+	    getNro(&opcion, "Buscar recaudacion por \n1)Anio\n2)Mes\n3)dia \n","Error",1, 3, 2);
 
+	    switch(opcion)
+	    case 1:
+	    {
+		getNro(&anio, "ingrese anio", "error", 1945, 2021, 2);
+		for(int i=0;i<tamanio;i++)
+		{
+		    if(anio==repa[i].fechaReparacion.year)
+		    {
+			servicioporId(&precio, service, tamanio, repa[i].id_del_Servicio);
+			acumulador+=precio;
+		    }
+		}
+		printf("Total recaudacion anio %d : $%.2f",anio,acumulador);
+		break;
+	    case 2:
+		getNro(&mes, "ingrese mes", "error", 1,12, 2);
+		for(int i=0;i<tamanio;i++)
+		{
+		    if(mes==repa[i].fechaReparacion.month)
+		    {
+			servicioporId(&precio, service, tamanio, repa[i].id_del_Servicio);
+			acumulador+=precio;
+		    }
+		}
+		printf("Total recaudacion mes %d : $%.2f",mes,acumulador);
+		acumulador=0;
+		break;
+	    case 3:
+		getNro(&dia, "ingrese dia", "error", 1, 31, 2);
+		for(int i=0;i<tamanio;i++)
+		{
+		    if(dia==repa[i].fechaReparacion.day)
+		    {
+			servicioporId(&precio, service, tamanio, repa[i].id_del_Servicio);
+			acumulador+=precio;
+		    }
+		}
+		printf("Total recaudacion dia %d : $%.2f",dia,acumulador);
+		acumulador=0;
+		break;
+	    case 4:
+		getNro(&dia, "ingrese fecha", "error", 1, 31, 2);
+		for(int i=0;i<tamanio;i++)
+		{
+		    if(dia==repa[i].fechaReparacion.day)
+		    {
+			servicioporId(&precio, service, tamanio, repa[i].id_del_Servicio);
+			acumulador+=precio;
+		    }
+		}
+		printf("Total recaudacion dia %d : $%.2f",dia,acumulador);
+		acumulador=0;
+	    }
+	getNro(&rta, "\nDesea ver mas recaudaciones? 1)SI 2)NO", "error", 1, 2, 2);
+	}while(rta==1);
+    }
+    return retorno;
+}
+int serviciomaspedido(Servicio* service,int tamanio,Reparacion* repa,int tamaniorepa)
+{
+    int total=0;
+    int arrayService[tamanio];
+    int a=0,b=0,c=0,d=0;
+
+    for(int i=0; i<tamanio; i++)
+    {
+	arrayService[i] = service[i].idServicio;
+    }
+    for(int j=0; j<tamaniorepa ; j++)
+    {
+	if(repa[j].id_del_Servicio==arrayService[0])
+	    a++; //3
+	else if(repa[j].id_del_Servicio==arrayService[1])
+	    b++; //4
+	else if(repa[j].id_del_Servicio==arrayService[2])
+	    c++; //1
+	else if(repa[j].id_del_Servicio==arrayService[3])
+	    d++; //7
+    }
+    if(a>b && a>c && a>d)
+	total=arrayService[0];
+    else if(b > a && b>c && b>d)
+	total=arrayService[1];
+    else if(c>a && c > b && c> d)
+	total=arrayService[2];
+    else
+    {
+	total=arrayService[3];
+    }
+	return total;
+    }
+int preciototalelec(Electrodomestico* elec,Reparacion* reparacioness,Servicio* servicio,Cliente* cliente)
+{
+	int aux_id_elec;
+	int indice;
+	float acumulador=0;
+	float total=0;
+	printElectrodomesticos(elec,tam_ele);
+
+	if(getNro(&aux_id_elec,"\nIngrese ID de Electrodomestico :","ERROR Ingrese un ID valido",100,106,3)==0
+	&& isValid_elec(elec, tam_ele, aux_id_elec)==0)
+	{
+	    for(indice=0; indice<tam_rep; indice++)
+	    {
+		if(reparacioness[indice].serieReparacion == aux_id_elec)
+		{
+		    printUnitReparacion(reparacioness,servicio,indice,elec,cliente);
+		    servicioporId(&acumulador, servicio, tam_ser, reparacioness[indice].id_del_Servicio);
+		    total+=acumulador;
+		}
+	    }
+	    printf("\n Precio total : $%.2f",total);
+	}
+	return 0;
+}
+int elecSinReparacion(Electrodomestico* elec,Reparacion* reparacioness,int tam_elec,int repara,Marca* marca,int tamanio_mar){
+
+	int indice,j;
+	//int array[10];
+// podria agregar un flag a la estruct de electrodomestico osino ...
+	for(indice=0; indice<tam_elec; indice++)
+	{
+	  for(j=0;  j<tam_rep ; j++)
+	  {
+	     if(elec[indice].idElec==reparacioness[j].serieReparacion)
+	     {
+		 break;
+	     }
+	     else if(j==tam_rep-1)
+	     {
+		 cartelUnitElec("sin reparar");
+		 printUnitElec(elec, indice, marca, tamanio_mar);
+	     }
+	  }
+	}
+	return 0;
+}
+int reparacionporelec(Electrodomestico* elec,Reparacion* reparacioness,Servicio* servicio,Cliente* cliente,Marca* marca){
+	int aux_id_elec;
+	int indice;
+
+	printElectrodomesticos(elec,tam_ele);
+
+	if(getNro(&aux_id_elec,"\nIngrese ID de Electrodomestico :","ERROR Ingrese un ID valido",100,106,3)==0
+	&& isValid_elec(elec, tam_ele, aux_id_elec)==0)
+	{
+	    for(indice=0; indice<tam_rep; indice++)
+	    {
+		if(reparacioness[indice].serieReparacion == aux_id_elec)
+		    printUnitReparacion(reparacioness,servicio,indice,elec,cliente);
+
+	    }
+
+	}
 	return 0;
 }
 int printpormarca(Marca* marca,Electrodomestico* elec, int cantidad,int tam_mar){
@@ -100,7 +264,7 @@ int printelec2020(Electrodomestico* elec, int tamanio,Marca* marca,int tam_mar){
 }
 int nuevosInformes(Reparacion* reparaciones,Cliente* cliente,Servicio* servicio,Electrodomestico* elec,Marca* marca,int tam_mar){
 	int submenu;
-	int bufferelec;
+
 	do{
 	    getNro(&submenu,
 	    "\nINFORMES \n"
@@ -121,28 +285,27 @@ int nuevosInformes(Reparacion* reparaciones,Cliente* cliente,Servicio* servicio,
 	    switch(submenu)
 	    {
 		case 1:
-			printelec2020(elec,tam_ele,marca,tam_mar);
-			break;
+		    printelec2020(elec,tam_ele,marca,tam_mar);
+		    break;
 		case 2:
-			printpormarca(marca, elec, tam_ele,tam_mar);
-			break;
+		    printpormarca(marca, elec, tam_ele,tam_mar);
+		    break;
 		case 3:
-			reparacionporelec(elec, reparaciones, servicio, cliente);
-			break;
+		    reparacionporelec(elec, reparaciones, servicio, cliente,marca);
+		    break;
 		case 4:
-			getNro(&bufferelec,"\nIngrese id electrodomestico :","ingrese electrodomestico valido",100,106,3);
-			if(isValid_elec(elec, tam_ele, bufferelec)==0)
-			{
-			    for(int k=0;k<tam_rep;k++)
-			    {
-				if(reparaciones[k].serieReparacion==bufferelec)
-				 printUnitReparacion(reparaciones, servicio, k);
-			    }
-			}
-			break;
+		    elecSinReparacion(elec, reparaciones, 4,tam_rep, marca, tam_mar);
+		    break;
 		case 5:
+		    preciototalelec(elec, reparaciones, servicio, cliente);
+		    break;
 		case 6:
+		    puts("El servicio mas demandado es :\n");
+		    printServicioporID(serviciomaspedido(servicio, tam_ser, reparaciones, tam_rep), servicio, tam_ser);
+		    break;
 		case 7:
+		    recaudacionxfecha(reparaciones, tam_rep, servicio);
+		    break;
 		case 8:
 		case 9:
 		case 10:

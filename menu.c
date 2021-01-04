@@ -18,7 +18,7 @@ int prueba;
  * 1- Mostrar Electrodomésticos del año(nodelo) 2020 -
 2- Mostrar Electrodomésticos de una marca seleccionada -
 3- Mostrar todos las reparaciones efectuadas al Electrodoméstico seleccionado -
-4- Listar los Electrodomésticos que no tuvieron reparaciones
+4- Listar los Electrodomésticos que no tuvieron reparaciones -
 5- Informar importe total de las reparaciones realizadas a un Electrodoméstico
 seleccionado
 6- Mostrar el servicio más pedido
@@ -103,7 +103,7 @@ int main(void) {
 		    printServicios(service,tam_ser);
 		    break;
 	    case 7:
-		    addReparacion(reparaciones,fecha,service,elec,cliente,tam_rep,&IdReparacion);
+		    addReparacion(reparaciones,fecha,service,elec,cliente,tam_rep,&IdReparacion,marca);
 		    break;
 	    case 8:
 		    printReparaciones(reparaciones,cliente,service,tam_rep);
