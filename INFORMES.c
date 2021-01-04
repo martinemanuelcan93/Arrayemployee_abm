@@ -33,7 +33,7 @@ int recaudacionxfecha(Reparacion* repa,int tamanio,Servicio* service)
     {
 	do
 	{
-	    getNro(&opcion, "Buscar recaudacion por \n1)Anio\n2)Mes\n3)dia \n","Error",1, 3, 2);
+	    getNro(&opcion, "Buscar recaudacion por \n1)Anio\n2)Mes\n3)dia\n4)Fecha exacta\n","Error",1, 4, 2);
 
 	    switch(opcion)
 	    case 1:
@@ -76,17 +76,23 @@ int recaudacionxfecha(Reparacion* repa,int tamanio,Servicio* service)
 		acumulador=0;
 		break;
 	    case 4:
-		getNro(&dia, "ingrese fecha", "error", 1, 31, 2);
+		puts("\nIngrese fecha exacta");
+		getNro(&aux.day, "Dia : ", "error",1, 31,2);
+		getNro(&aux.month, "Mes : ", "error",1,12,2);
+		getNro(&aux.year, "Anio : ", "error", 1945,2021,2);
 		for(int i=0;i<tamanio;i++)
 		{
-		    if(dia==repa[i].fechaReparacion.day)
+		    if(aux.day==repa[i].fechaReparacion.day
+		    && aux.month==repa[i].fechaReparacion.month
+		    && aux.year==repa[i].fechaReparacion.year)
 		    {
 			servicioporId(&precio, service, tamanio, repa[i].id_del_Servicio);
 			acumulador+=precio;
 		    }
 		}
-		printf("Total recaudacion dia %d : $%.2f",dia,acumulador);
+		printf("Total recaudacion fecha %d/%d/%d : $%.2f",aux.day,aux.month,aux.year,acumulador);
 		acumulador=0;
+		break;
 	    }
 	getNro(&rta, "\nDesea ver mas recaudaciones? 1)SI 2)NO", "error", 1, 2, 2);
 	}while(rta==1);

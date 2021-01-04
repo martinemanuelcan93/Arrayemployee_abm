@@ -94,7 +94,7 @@ int altaforzadaReparacion(Reparacion* reparacion,Fecha* fecha,Servicio* service,
 	int cantidad_hardcodeada=0;
 	Reparacion buffer_reparacion[]=	{
 		    {10,100,20000,FALSE,{2,12,1993}}, //250
-		    {11,100,20002,FALSE,{2,12,1999}},//400
+		    {11,100,20002,FALSE,{2,12,1993}},//400
 		    {12,101,20000,FALSE,{2,12,2020}},//250
 		    {13,102,20001,FALSE,{9,10,2020}},
 		    {14,104,20003,FALSE,{2,12,2020}},//600
