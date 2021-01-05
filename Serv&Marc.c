@@ -102,10 +102,10 @@ void strcpyMarcaporID(char* buffer,int idmarca_buscada,Marca* marca,int tamanio_
 int altaforzadaServicio(Servicio* servicio,int tam){
 	if(servicio!=NULL && 0<tam ){
 	Servicio bufferservicio[]={
-				{20000,"Garantia     ",250},     //0
+				{20000,"Garantia",250},     //0
 				{20001,"Mantenimiento",500},	 //1
-				{20002,"Repuestos    ",400},	 //2
-				{20003,"Refaccion    ",600}		 //3
+				{20002,"Repuestos",400},	 //2
+				{20003,"Refaccion",600}		 //3
 		};
 		for(int i=0;i<tam;i++){
 			servicio[i]=bufferservicio[i];
@@ -129,4 +129,15 @@ int printServicios(Servicio* servicio, int tam){
 		retorno=0;
 	}
 		return retorno;
+}
+int serviciopordescripcion(char* descripcion,Servicio* servic, int tamanio)
+{
+    int descripcionID;
+
+    for(int i=0;i<tamanio; i++)
+    {
+	if(strcmp(descripcion,servic[i].descripcion)==0)
+	descripcionID=servic[i].idServicio;
+    }
+    return descripcionID;
 }

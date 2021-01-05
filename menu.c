@@ -14,21 +14,6 @@
 #define tam_mar 5
 #define tam_rep 10
 int prueba;
-/*
- * 1- Mostrar Electrodomésticos del año(nodelo) 2020 -
-2- Mostrar Electrodomésticos de una marca seleccionada -
-3- Mostrar todos las reparaciones efectuadas al Electrodoméstico seleccionado -
-4- Listar los Electrodomésticos que no tuvieron reparaciones -
-5- Informar importe total de las reparaciones realizadas a un Electrodoméstico
-seleccionado
-6- Mostrar el servicio más pedido
-7- Mostrar la recaudación en una fecha en particular
-8- Mostrar todos los Electrodomésticos que realizaron una garantía y la fecha
-9- Trabajos realizados a Electrodomésticos del año(modelo) 2018
-10- Facturación total por los mantenimientos
-11- Informar la marca de Electrodomésticos que efectuaron más refacciones
-12- Listar los Electrodomésticos que recibieron reparación en un fecha determinada
- * */
 
 int main(void) {
 	setbuf(stdin,NULL);

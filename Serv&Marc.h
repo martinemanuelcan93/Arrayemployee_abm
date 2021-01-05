@@ -17,5 +17,6 @@ void strcpyMarcaporID(char* buffer,int idmarca_buscada,Marca* marca,int tamanio_
 int getMarca(Marca* marca, int tamanio_marca,int* id_aux_marca);
 int altaforzadaServicio(Servicio* servicio,int tam);
 int printServicios(Servicio* servicio, int tam);
+int serviciopordescripcion(char* descripcion,Servicio* servic, int tamanio);
 #include "Serv&Marc.h"
 #endif /* SERVICIOS_MARCAS_H_ */

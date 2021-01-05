@@ -93,15 +93,19 @@ int altaforzadaReparacion(Reparacion* reparacion,Fecha* fecha,Servicio* service,
 	{20003,"Refaccion    ",600}*/
 	int cantidad_hardcodeada=0;
 	Reparacion buffer_reparacion[]=	{
-		    {10,100,20000,FALSE,{2,12,1993}}, //250
-		    {11,100,20002,FALSE,{2,12,1993}},//400
-		    {12,101,20000,FALSE,{2,12,2020}},//250
+		    {10,103,20000,FALSE,{2,12,1993}},
+		    {11,100,20002,FALSE,{2,12,1993}},
+		    {12,101,20000,FALSE,{2,12,2020}},
 		    {13,102,20001,FALSE,{9,10,2020}},
-		    {14,104,20003,FALSE,{2,12,2020}},//600
-		    {15,104,20001,FALSE,{9,10,2007}},
-		    {16,101,20001,FALSE,{9,10,2005}}
+		    {14,104,20003,FALSE,{2,12,1993}}, // deberia tirar en informes {1004,"Philips"}
+		    {15,104,20001,FALSE,{9,10,2018}},
+		    {16,104,20001,FALSE,{9,10,2018}}
 	};
-
+	    /*  {1000,"Sony"},
+		{1001,"Wirpool"},
+		{1002,"Liliana"},
+		{1003,"Gafa"},
+		{1004,"Philips"},*/
 	for(int j=0; j<tam_repa ; j++)
 	{
 	    if(buffer_reparacion[j].isEmpty==FALSE)

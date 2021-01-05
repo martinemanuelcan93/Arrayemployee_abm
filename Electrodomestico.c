@@ -148,7 +148,7 @@ void altaforzadaVariosElec(Electrodomestico* elec,int tam,int *id_elec){
 			{101,55,1002,0,4,{2,2,2020}},//1
 			{102,60,1002,0,2,{2,2,2020}},//2
 			{103,23,1004,0,6,{2,2,2001}},//3
-		//	{104,19,1004,1,8,{2,2,1999}} //4
+			{104,19,1004,0,8,{2,2,1999}} //4
 	};
 	for(int j=0; j<tam ; j++)
 	{
@@ -312,7 +312,7 @@ int printUnitElec(Electrodomestico* data,int posicion,Marca* marca,int tamanio_m
 	int retorno=-1;
 	if(data!=NULL)
 	{
-	    char buffer_marca[4000];
+	    char buffer_marca[400];
 	    strcpyMarcaporID(buffer_marca,data[posicion].idmarca,marca,tamanio_mar);
 	    printf(" %d    %3s       %d      %d\n",
 		    data[posicion].idElec,
@@ -341,13 +341,3 @@ void electrodomesticos_cargados(Electrodomestico* elec,int tamanio)
 
 }
 
-/* float promedio(Electrodomestico* data,float* promedy,int L){
-	float total=0;
-	int contador=0;
-	for(int i=0;i<L;i++){
-		total=  data[i].salary + total ;
-		contador++;
-	}
-	*promedy=total/contador;
-	return 0;
-}*/
