@@ -1,9 +1,9 @@
-#include "Serv&Marc.h"
-#include "Cliente.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "Biblioteca2020.h"
+#include "Serv&Marc.h"
+#include "Cliente.h"
 
 int altaforzadaCliente(Cliente* cliente,int tamanio){
 	Cliente buffermarca[]={

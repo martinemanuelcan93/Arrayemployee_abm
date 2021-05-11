@@ -1,8 +1,9 @@
-#include "reparaciones.h"
+//#include "reparaciones.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "Biblioteca2020.h"
+#include "Reparaciones.h"
 #include "Electrodomestico.h"
 #include "INFORMES.h"
 #define TRUE  1
